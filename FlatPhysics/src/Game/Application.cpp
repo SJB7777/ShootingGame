@@ -73,7 +73,7 @@ int main(int argc, char** argv)
 		
 	}
 
-	//game.End();
+	game.End();
 
 	return 0;
 }

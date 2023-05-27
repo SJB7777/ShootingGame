@@ -33,6 +33,10 @@ public:
 
 		texture = LoadTexture("asset/slingshot.png");
 	}
+	~Cannon()
+	{
+		UnloadTexture(texture);
+	}
 	Texture texture;
 	FlatVector origin = { -250.0f, 100.0f };
 	FlatEntity* cannon = new FlatEntity();

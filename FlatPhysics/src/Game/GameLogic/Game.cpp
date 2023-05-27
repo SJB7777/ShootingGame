@@ -322,7 +322,10 @@ void Game::Draw(float deltaTime) {
 }
 
 void Game::End() {
-   
+    UnloadTexture(texture_start_page);
+    UnloadMusicStream(music);
+    UnloadMusicStream(music2);
+    UnloadSound(crashSound);
 }
 
 /*void Game::UpdateScore() {
