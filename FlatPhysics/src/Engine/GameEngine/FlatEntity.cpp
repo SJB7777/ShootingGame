@@ -87,7 +87,7 @@ void FlatEntity::Draw()
 			std::string errorMessage;
 			PolygonHelper::Triangulate(vertices, triangles, errorMessage);
 			GameDraw::DrawPolygonFill(vertexBuffer, triangles, color);
-			GameDraw::DrawPolygonLines(vertexBuffer, 0.7f, WHITE);
+			//GameDraw::DrawPolygonLines(vertexBuffer, 0.7f, WHITE);
 		}
 	}
 	

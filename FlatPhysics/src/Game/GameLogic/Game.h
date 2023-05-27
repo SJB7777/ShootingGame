@@ -28,7 +28,7 @@ public:
 	Cannon() {}
 	Cannon(FlatWorld& world, float radius)
 	{
-		cannon = new FlatEntity(world, radius, false, RAYWHITE, origin);
+		cannon = new FlatEntity(world, radius, false, YELLOW, origin);
 		cannon->GetBody()->IsStatic = true;
 
 		texture = LoadTexture("asset/slingshot.png");
@@ -45,7 +45,7 @@ public:
 	{
 		FlatVector endPos = cannon->GetPosition();
 		displacement = endPos - origin;
-		float thick = sqrt(100.0f / FlatMath::Length(displacement));
+		float thick = sqrt(300.0f / FlatMath::Length(displacement));
 		GameDraw::DrawLine(origin, endPos, thick, BROWN);
 	}
 	void Draw()
@@ -82,8 +82,8 @@ public:
 
 	void End();
 
-	int hp, left_ball;
-	
+	int left_ball;
+	float hp;
 private:
 	double stepTime;
 	float alpha = 0.75f;
@@ -148,6 +148,11 @@ private:
 	//textbox
 //	Rectangle textbox = { GetScreenWidth() / 2 - 100, 180, 225, 50 };
 	bool mouseontext = false;
+
+	// enemy
+	std::vector<FlatVector> vertices = { {-15, 0}, {-25, 60}, {25, 60}, {15, 0}, {-15, 0} };
+	FlatEntity* enemy = new FlatEntity(world, vertices, false, RED, { 260, 157.5 });
+	FlatVector oldVelocity = FlatVector::Zero();
 };
 
 

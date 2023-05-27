@@ -26,8 +26,8 @@ void Game::Setting() {
     entityVector.push_back(new FlatEntity(world, 30, 270, true, GRAY, { 0, 50 }));
 
     // Enemy
-    std::vector<FlatVector> vertices = { {-15, 0}, {-25, 60}, {25, 60}, {15, 0}, {-15, 0} };
-    entityVector.push_back(new FlatEntity(world, vertices, false, RED, { 260, 150 }));
+    
+    entityVector.push_back(enemy);
 
     //entityVector.push_back(new FlatEntity(world, 30, 70, true, RED, { 300, 150 }));
     //entityVector.push_back(new FlatEntity(world, 15, 15, true, RED, { 300, 107 }));
@@ -133,9 +133,22 @@ void Game::UpdateGame(float deltaTime) {
         camera.camera.target.y -= deltaTime * camera.linearSpeed;
     }
     
+    // 과거 enemy의 속도 기록
+    oldVelocity = enemy->GetBody()->LinearVelocity;
+
     double startTime = GetTime();
     world.Step(deltaTime, 10);
     stepTime = GetTime() - startTime;
+
+    // enemey의 속도 변화로 충격량 계산
+    float impulseSq = FlatMath::DistanceSquared(enemy->GetBody()->LinearVelocity, oldVelocity);
+    if (impulseSq > 100.0f)
+    {
+        // 적절한 데미지로 변환
+        float damage = 10.0f * powf(impulseSq, 0.2);
+        hp = hp - damage;
+        printf("%f %f\n", damage, hp);
+    }
 
     CameraExtents extents = camera.GetExtents();
     float viewBottom = extents.top;
@@ -187,7 +200,7 @@ void Game::UpdateGame(float deltaTime) {
 
     if (left_ball == 0)
         ApplicationState = ApplicationStates::GameOver;
-    if (hp == 0)
+    if (hp <= 0)
         ApplicationState = ApplicationStates::GameClear;
 }
 
