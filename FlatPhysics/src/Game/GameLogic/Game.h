@@ -55,6 +55,17 @@ public:
 	}
 	FlatEntity* GetEntity() { return cannon; }
 	bool isClicked = false;
+	bool isReleased = false;
+	void ResetTime()
+	{
+		startTime = GetTime();
+	}
+	double Time()
+	{
+		return GetTime() - startTime;
+	}
+private:
+	double startTime;
 };
 
 class Game
@@ -150,9 +161,33 @@ private:
 	bool mouseontext = false;
 
 	// enemy
-	std::vector<FlatVector> vertices = { {-15, 0}, {-25, 60}, {25, 60}, {15, 0}, {-15, 0} };
+	
+	std::vector<FlatVector> vertices = { 
+		{-15, 0},
+		{-25, 60}, 
+		{25, 60}, 
+		{15, 0}, 
+		{-15, 0} 
+	};
+	/*std::vector<FlatVector> vertices = {
+		{93, 0},
+		{68, 42},
+		{53, 42},
+		{46, 73},
+		{0, 88},
+		{33, 121},
+		{24, 160},
+		{162, 160},
+		{153, 121},
+		{186, 88},
+		{140, 73},
+		{133, 42},
+		{118, 42},
+		{93, 0}
+	};*/
 	FlatEntity* enemy = new FlatEntity(world, vertices, false, RED, { 260, 157.5 });
 	FlatVector oldVelocity = FlatVector::Zero();
+	Sound crashSound;
 };
 
 

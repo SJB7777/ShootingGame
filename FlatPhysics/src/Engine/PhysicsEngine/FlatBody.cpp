@@ -459,6 +459,31 @@ namespace FlatPhysics
 		multibody = MultiBody(subBodies, body.Density, body.Mass, body.Inertia, body.Restitution, body.Area, body.IsStatic, body.vertices);
 	}
 
+	void MultiBody::CombineBodies(std::vector<MultiBody>& bodyVector)
+	{
+		float mass = 0.0f;
+		for (auto& body : bodyVector)
+		{
+			mass += body.Mass;
+		}
+	}
+
+	std::vector<FlatVector> MultiBody::GetTransformedVertices()
+	{
+		if (transformUpdateRequired)
+		{
+			FlatTransform transform(position, angle);
+			for (int i = 0; i < vertices.size(); i++)
+			{
+				FlatVector& v = vertices[i];
+				transformedVertices[i] = FlatVector::Transform(v, transform);
+			}
+		}
+
+		transformUpdateRequired = false;
+		return transformedVertices;
+	}
+
 	FlatAABB MultiBody::GetAABB()
 	{
 		if (aabbUpdateRequired)

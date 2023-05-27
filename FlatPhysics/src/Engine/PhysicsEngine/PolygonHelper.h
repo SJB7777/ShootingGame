@@ -93,6 +93,7 @@ namespace FlatPhysics
 					{
 						continue;
 					}
+					
 
 					bool isEar = true;
 
@@ -115,6 +116,7 @@ namespace FlatPhysics
 
 					if (isEar)
 					{
+						
 						triangles[triangleIndexCount++] = b;
 						triangles[triangleIndexCount++] = a;
 						triangles[triangleIndexCount++] = c;
@@ -161,7 +163,7 @@ namespace FlatPhysics
 
 		static bool ContainsColinearEdges(const std::vector<FlatVector>& vertices)
 		{
-			return true;
+			
 		}
 
 		static void ComputePolygonArea(const std::vector<FlatVector>& vertices, float& area, WindingOrder& windingOrder)

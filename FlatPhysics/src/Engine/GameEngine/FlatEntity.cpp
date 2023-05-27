@@ -98,6 +98,31 @@ FlatVector FlatEntity::GetPosition()
 	return multiBody->GetPosition();
 }
 
+FlatVector FlatEntity::GetVelocity()
+{
+	return multiBody->LinearVelocity;
+}
+
+float FlatEntity::GetAngularVelocity()
+{
+	return multiBody->AngularVelocity;
+}
+
+float FlatEntity::GetAngle()
+{
+	return multiBody->angle;
+}
+
+std::vector<FlatVector> FlatEntity::GetVertices()
+{
+	return multiBody->vertices;
+}
+
+std::vector<FlatVector> FlatEntity::GetTransformedVertices()
+{
+	return multiBody->GetTransformedVertices();
+}
+
 
 
 void FlatEntity::MoveTo(const FlatVector& amount)

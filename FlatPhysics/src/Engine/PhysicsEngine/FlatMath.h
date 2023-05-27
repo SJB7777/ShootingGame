@@ -10,12 +10,12 @@
 namespace FlatPhysics {
 	class FlatMath
 	{
-	private:
+	public:
 		
 		// Equal to 1/2 of a millimeter.
 		
 		static float VerySmallAmount() { return 0.0005f; }
-	public:
+	
 		static int Clamp(int value, int min, int max)
 		{
 			if (min == max)

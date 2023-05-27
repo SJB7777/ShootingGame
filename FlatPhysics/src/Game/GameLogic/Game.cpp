@@ -28,7 +28,7 @@ void Game::Setting() {
     // Enemy
     
     entityVector.push_back(enemy);
-
+    crashSound = LoadSound("asset/crash.mp3");
     //entityVector.push_back(new FlatEntity(world, 30, 70, true, RED, { 300, 150 }));
     //entityVector.push_back(new FlatEntity(world, 15, 15, true, RED, { 300, 107 }));
 
@@ -51,6 +51,8 @@ void Game::Setting() {
     music2 = LoadMusicStream("asset/bgm2.mp3");
     music_select = 1;
     music_mute = 0;
+
+    
 }
 
 void Game::UpdateGameClear()
@@ -89,16 +91,32 @@ void Game::UpdateGame(float deltaTime) {
     if (cannon->isClicked)
     {
         cannon->GetEntity()->MoveTo(FlatConverter::ToFlatVector(GetScreenToWorld2D(GetMousePosition(), camera.camera)));
+        cannon->isReleased = false;
         if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
         {
+            
             left_ball--;
             FlatEntity* entity = cannon->GetEntity();
             cannon->isClicked = false;
             entity->GetBody()->IsStatic = false;
             entity->SetVelocity(FlatVector::Zero());
             entity->AddForce(cannon->GetDisplacement() * -800000.0f);
+            cannon->isReleased = true;
+            cannon->ResetTime();
             
-            
+        }
+    }
+    if (cannon->isReleased)
+    {
+        if (cannon->Time() > 10.0f)
+        {
+            left_ball--;
+            cannon->ResetTime();
+            cannon->isReleased = false;
+            cannon->isClicked = false;
+            cannon->cannon->MoveTo(cannon->origin);
+            cannon->cannon->ToggleIsStatic();
+            cannon->cannon->SetVelocity(FlatVector::Zero());
         }
     }
     
@@ -144,10 +162,13 @@ void Game::UpdateGame(float deltaTime) {
     float impulseSq = FlatMath::DistanceSquared(enemy->GetBody()->LinearVelocity, oldVelocity);
     if (impulseSq > 100.0f)
     {
+        cannon->ResetTime();
         // 적절한 데미지로 변환
         float damage = 10.0f * powf(impulseSq, 0.2);
         hp = hp - damage;
         printf("%f %f\n", damage, hp);
+        
+        PlaySound(crashSound);
     }
 
     CameraExtents extents = camera.GetExtents();
@@ -198,7 +219,7 @@ void Game::UpdateGame(float deltaTime) {
         PlayMusicStream(music2);
     }
 
-    if (left_ball == 0)
+    if (left_ball == -1)
         ApplicationState = ApplicationStates::GameOver;
     if (hp <= 0)
         ApplicationState = ApplicationStates::GameClear;
@@ -275,11 +296,14 @@ void Game::Draw(float deltaTime) {
     }
     cannon->Draw();
 
+    
+
+    
     DrawRectangle(-325, -220, 150, 40, BLUE);
-    for (int i = 0; i < left_ball; i++)
+    for (int i = 0; i < 5; i++)
         DrawCircle(-310 + 30 * i, -200, 10, GREEN);
     for (int i = left_ball; i < 5 && i >= 0; i++) {
-        DrawCircle(-310 + 30 * i, -200, 10, GREEN);
+        //DrawCircle(-310 + 30 * i, -200, 10, GREEN);
         DrawLine(-175 - 30 * i, -215, -205 - 30 * i, -185, RED);
     }
     DrawRectangle(175, -220, 150, 40, BLUE);

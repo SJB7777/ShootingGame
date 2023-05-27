@@ -120,6 +120,7 @@ namespace FlatPhysics {
 
 		static bool CreateConcaveBody(std::vector<FlatVector>& vertices, float density, bool isStatic, float restitution, MultiBody& multiBody, std::string& errorMessage);
 		static void CreateSingleBody(FlatBody& body, MultiBody& multiBody);
+		static void CombineBodies(std::vector<MultiBody>& bodyVector);
 	public:
 
 		
@@ -156,7 +157,7 @@ namespace FlatPhysics {
 
 	public:
 		
-		
+		std::vector<FlatVector> GetTransformedVertices();
 		FlatAABB GetAABB();
 
 		void Step(float time, const FlatVector& gravity, int iterations);

@@ -24,10 +24,17 @@ public:
 	void Draw();
 
 	FlatVector GetPosition();
-	
+	FlatVector GetVelocity();
+	float GetAngularVelocity();
+	float GetAngle();
+	std::vector<FlatVector> GetVertices();
+	std::vector<FlatVector> GetTransformedVertices();
+
+
 	void MoveTo(const FlatVector& amount);
 	void AddForce(const FlatVector& force);
 	void SetVelocity(const FlatVector& amount);
+	
 	void ToggleIsStatic();
 
 };
