@@ -13,7 +13,7 @@ int main(int argc, char** argv)
 
 	game.Setting();
 
-	while (!WindowShouldClose()) {
+	while (!WindowShouldClose() && ApplicationState != ApplicationStates::Exit) {
 		float time = GetFrameTime();
 		
 
@@ -67,8 +67,7 @@ int main(int argc, char** argv)
 			EndDrawing();
 			break;
 		}
-		if (ApplicationState == ApplicationStates::Exit)
-			break;
+		
 
 		
 	}
