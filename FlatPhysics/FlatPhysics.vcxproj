@@ -41,6 +41,7 @@
     <ClInclude Include="src\Engine\PhysicsEngine\FlatTransform.h" />
     <ClInclude Include="src\Engine\PhysicsEngine\FlatVector.h" />
     <ClInclude Include="src\Engine\PhysicsEngine\FlatWorld.h" />
+    <ClInclude Include="src\Game\scoreboard.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\GameEngine\Screen.cpp" />
@@ -54,6 +55,8 @@
     <ClCompile Include="src\Engine\PhysicsEngine\FlatTransform.cpp" />
     <ClCompile Include="src\Engine\PhysicsEngine\FlatVector.cpp" />
     <ClCompile Include="src\Engine\PhysicsEngine\FlatWorld.cpp" />
+    <ClCompile Include="src\Game\Kim.cpp" />
+    <ClCompile Include="src\Game\scoreboard.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

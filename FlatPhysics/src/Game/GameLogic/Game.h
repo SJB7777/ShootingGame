@@ -1,5 +1,6 @@
 #pragma once
 #include "Common.h"
+#include "../scoreboard.h"
 #include <string>
 
 
@@ -92,13 +93,30 @@ public:
 	void UpdateGameClear();
 	void DrawGameClear();
 
-	void UpdateScore();
-	void DrawScore();
+	void UpdateScore(scoreboard SB);
+	void DrawScore(scoreboard SB);
 
+	void Updatetextbox(char* name);
+	void Drawtextbox(char* name);
+
+	void Setting_K();
 	void End();
 
 	int left_ball;
 	float hp;
+
+	//textbox
+	Rectangle textbox = { GetScreenWidth() / 2 - 100, 180, 225, 50 };
+	bool mouseontext = false;
+
+	int letterCount = 0;
+	int framesCounter = 0;
+
+	//var set
+	char name[NAMELEN] = "\0";
+	int score = 0;
+
+
 private:
 	double stepTime;
 	float alpha = 0.75f;
@@ -123,7 +141,7 @@ private:
 	FlatWorld world{ {0, 98.1} };
 	std::vector<Vector2> vertexBuffer;
 
-	Button start_btn, exit_btn;
+	Button start_btn, exit_btn, menu_btn;
 	Button Btn;
 	Button Btn_Retry;
 	Button Btn_Resume;
@@ -160,9 +178,6 @@ private:
 	Music music2;
 	int music_select, music_mute;
 
-	//textbox
-//	Rectangle textbox = { GetScreenWidth() / 2 - 100, 180, 225, 50 };
-	bool mouseontext = false;
 
 	// enemy
 	

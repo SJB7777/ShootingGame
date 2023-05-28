@@ -124,6 +124,10 @@ void Game::UpdateGame(float deltaTime) {
         ApplicationState = ApplicationStates::GameClear;
     if (IsKeyPressed(KEY_G))
         ApplicationState = ApplicationStates::GameOver;
+    if (IsKeyPressed(KEY_A))
+        ApplicationState = ApplicationStates::Text;
+    if (IsKeyPressed(KEY_B))
+        ApplicationState = ApplicationStates::ScoreBoard;
         
     if (IsKeyPressed(KEY_T))
     {
@@ -232,10 +236,6 @@ void Game::UpdateMainMenu()
     start_btn.click_connect(this, &Game::run);
     exit_btn.click_connect(this, &Game::exit);
 
-    if (ApplicationState == ApplicationStates::Menu)
-        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-            ApplicationState = ApplicationStates::Running;
-    
 }
 
 void Game::DrawMainMenu()
@@ -371,7 +371,3 @@ void Game::End() {
     if (mouseOnText) framesCounter++;
     else framesCounter = 0;
 }*/
-
-void Game::DrawScore() {
-
-}

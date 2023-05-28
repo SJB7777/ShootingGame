@@ -1,11 +1,13 @@
 
 #include "GameLogic\Game.h"
+#include "scoreboard.h"
 
 
 int main(int argc, char** argv)
 {
 	ApplicationState = ApplicationStates::Menu;
 	Game game;
+	scoreboard SB;
 
 	InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Game");
 	SetWindowState(FLAG_VSYNC_HINT);
@@ -66,13 +68,26 @@ int main(int argc, char** argv)
 
 			EndDrawing();
 			break;
-		}
-		
 
-		
+
+		case ApplicationStates::Text:
+			game.Updatetextbox(game.name);
+			BeginDrawing();
+			game.Drawtextbox(game.name);
+			EndDrawing();
+
+		case ApplicationStates::ScoreBoard:
+			game.UpdateScore(SB);
+			BeginDrawing();
+			game.DrawScore(SB);
+			EndDrawing();
+		}
+		if (ApplicationState == ApplicationStates::Exit)
+			break;
+
 	}
 
-	game.End();
+	//game.End();
 
 	return 0;
 }

@@ -9,6 +9,7 @@ enum class ApplicationStates {
 	Paused,
 	GameOver,
 	GameClear,
+	Text,
 	ScoreBoard,
 	Exit
 };
